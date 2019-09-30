@@ -1,0 +1,43 @@
+﻿@{ 
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Company List</title>
+    <link rel="stylesheet" href="~/css/site.css" type="text/css" />
+</head>
+<body>
+    <div id="app-container"></div>
+
+    <script type="text/x-template" id="app-list-template">
+        <div id="app">
+            <h1>Company List</h1>
+            <input class="new-company" 
+                   v-model="newItem" 
+                   v-on:keyup.enter="addItem" autofocus autocomplete="off" placeholder="Новая организация" />
+            <ul class="app-list">
+                <app-item v-for="item in items" v-on:remove-item="removeItem" :item="item" :key="item.id"></app-item>
+            </ul>
+            <ul class="app-stat">
+                <li>всего: {{total}}</li>
+            </ul>
+        </div>
+    </script>
+    <script type="text/x-template" id="app-item-template">
+        <li class="app-item">
+            <label class="name">{{ item.id }}: {{ item.name }}</label>
+            <div title="удалить" class="remove" v-on:click="$emit('remove-item', item)"></div>
+        </li>
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="~/js/site.js" type="text/javascript"></script>
+    <script>
+        CompanyList.render('#app-container');
+    </script>
+</body>
+
+</html>
